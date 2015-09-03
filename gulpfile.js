@@ -6,6 +6,7 @@ var serve = require('gulp-serve')
 var sourcemaps = require('gulp-sourcemaps')
 var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
+var qunit = require('gulp-qunit')
 
 gulp.task('serve', serve({
   root: ['.'],
@@ -29,6 +30,13 @@ gulp.task('js', ['babel'], function() {
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('.'));
   return stream;
+})
+
+gulp.task('test', function() {
+  gulp.src('./test/index.html')
+    .pipe(qunit({
+      timeout: 20
+    }))
 })
 
 gulp.task('watch', function() {
