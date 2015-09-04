@@ -2,6 +2,8 @@
 
 Better localStorage
 
+参考示例见[测试文件](https://github.com/aprilorange/localdb/blob/master/test%2Ftests.js)
+
 ## API
 
 ### new localdb(name:String, type = 'Array', timestamp = false)
