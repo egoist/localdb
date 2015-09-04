@@ -1,8 +1,8 @@
 {
   "name": "localdb",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
-  "main": "gulpfile.js",
+  "main": "localdb.js",
   "scripts": {
     "build": "gulp build",
     "test": "gulp test"
