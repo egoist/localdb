@@ -57,11 +57,15 @@ test('update an Object db', function () {
 })
 
 test('add a user with auto timestamp', function () {
-  var user = User.add({
-    username: 'kevin',
-    birth: '1994'
-  }).findOne({username: 'kevin'})
+  initUsers()
+  var user = User.findOne({username: 'kevin'})
   ok(user.createdAt)
+})
+
+test('skip and limit when finding user', function () {
+  initUsers()
+  var user = User.find(null, {skip: 1, limit: 1})
+  ok(user[0].username === 'joe')
 })
 
 test('destroy db', function () {
@@ -84,4 +88,21 @@ function initBooks () {
     author: 'SOX',
     year: 2013
   }).get()
+}
+
+function initUsers () {
+  User.destroy()
+  User.add({
+    username: 'kevin',
+    birth: '1994'
+  }).add({
+      username: 'joe',
+      age: 10
+    }).add({
+      username: 'daniel',
+      age: 19,
+      weight: 50
+    })
+
+  return User.get()
 }

@@ -74,9 +74,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             });
           }
-          if (opts.limit === 1) {
+          if (opts.limit === 1 && opts.skip === 0) {
             return collection[0];
           } else {
+
             collection = collection.sort(function (a, b) {
               if (a[opts.sortBy] < b[opts.sortBy]) {
                 return -opts.sort;
@@ -86,7 +87,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 return 0;
               }
             });
-            return collection;
+
+            if (opts.limit === 0) {
+              return collection.slice(opts.skip);
+            } else {
+              return collection.slice(opts.skip, opts.limit + opts.skip);
+            }
           }
         }
       }, {
