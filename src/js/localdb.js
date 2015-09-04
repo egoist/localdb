@@ -10,7 +10,7 @@
 
   let definition = (W, LS) => {
     class LocalDB {
-      constructor(name, type = 'Array', timestamp = false) {
+      constructor (name, type = 'Array', timestamp = false) {
         if (typeof name === 'string') {
           this.db = name
           this.type = type
@@ -137,7 +137,7 @@
             }
           })
         } else if (this.type === 'Object') {
-          delete(collection[key])
+          delete collection[key]
         }
 
         LS.setItem(this.db, JSON.stringify(collection))
@@ -152,8 +152,7 @@
     }
 
     return LocalDB
-  };
-
+  }
 
   function arrayEachTrue (array) {
     for (var i = 0; i < array.length; i++) {
@@ -166,18 +165,15 @@
 
   function objectId () {
     const timestamp = (new Date().getTime() / 1000 | 0).toString(16)
-    return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
-        return (Math.random() * 16 | 0).toString(16);
-    }).toLowerCase()
+    return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, () => (Math.random() * 16 | 0).toString(16)).toLowerCase()
   }
 
-  (context, name, definition) => {
+  ;(context, name, definition) => {
     if (typeof module !== 'undefined') {
-      modul.exports = definition
+      module.exports = definition
     } else if (typeof context !== 'undefined') {
       context[name] = definition
     }
-
-  }(window, 'localdb', definition(window, localStorage))
+  }(window, 'localdb', definition(window, window.localStorage))
 
 }()

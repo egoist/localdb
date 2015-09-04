@@ -1,6 +1,6 @@
 {
   "name": "localdb",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
@@ -17,5 +17,8 @@
     "gulp-serve": "^1.0.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.4.0"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }

@@ -1,5 +1,7 @@
 # LocalDB
 
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 Better localStorage
 
 参考示例见[测试文件](https://github.com/aprilorange/localdb/blob/master/test%2Ftests.js)

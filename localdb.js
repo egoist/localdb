@@ -194,11 +194,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }).toLowerCase();
   }
 
-  (function (context, name, definition) {
+  ;(function (context, name, definition) {
     if (typeof module !== 'undefined') {
-      modul.exports = definition;
+      module.exports = definition;
     } else if (typeof context !== 'undefined') {
       context[name] = definition;
     }
-  })(window, 'localdb', definition(window, localStorage));
+  })(window, 'localdb', definition(window, window.localStorage));
 })();
