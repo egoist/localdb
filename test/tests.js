@@ -1,5 +1,10 @@
 var booksdb = new localdb('books', 'Array')
 var config = new localdb('config', 'Object')
+var User = new localdb({
+  name: 'User',
+  type: 'Array',
+  timestamp: true
+})
 
 test('localdb is a function', function () {
   ok(typeof localdb == 'function')
@@ -17,6 +22,26 @@ test('remove a book and return books', function () {
   ok(updated.length == books.length - 1)
 })
 
+test('find a book in books', function () {
+  initBooks()
+  var book = booksdb.findOne({title: 'Diao', author: 'SOX'})
+  ok(book.title === 'Diao' && book.author === 'SOX')
+})
+
+test('desending all books by index', function () {
+  initBooks()
+  var books = booksdb.find(null, {sort: -1})
+  ok(books[0].title === '大大泡泡堂')
+})
+
+test('update a book', function () {
+  initBooks()
+  var book = booksdb.findOne({title: 'Diao'})
+  book.title = 'Love'
+  booksdb.save(book)
+  book = booksdb.findOne({title: 'Love'})
+  ok(book.title === 'Love')
+})
 
 test('remove a key', function () {
   var site = config.set('date', Date.now()).set('owner', 'God').get()
@@ -29,6 +54,14 @@ test('remove a key', function () {
 test('update an Object db', function () {
   var site = config.set('sitename', 'Google').get()
   ok(site.sitename === 'Google')
+})
+
+test('add a user with auto timestamp', function () {
+  var user = User.add({
+    username: 'kevin',
+    birth: '1994'
+  }).findOne({username: 'kevin'})
+  ok(user.createdAt)
 })
 
 test('destroy db', function () {
@@ -44,11 +77,11 @@ function initBooks () {
     year: 2013
   }).add({
     title: 'Diao',
-    author: 'Kinpika',
+    author: 'SOX',
     year: 2013
   }).add({
     title: '大大泡泡堂',
-    author: 'Kinpika',
+    author: 'SOX',
     year: 2013
   }).get()
 }
