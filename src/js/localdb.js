@@ -10,10 +10,11 @@
 
   let definition = (W, LS) => {
     class LocalDB {
-      constructor(name, type = 'Array') {
+      constructor(name, type = 'Array', timestamp = false) {
         if (typeof name === 'string') {
           this.db = name
           this.type = type
+          this.timestamp = timestamp
         } else if (typeof name === 'object') {
           const opts = name
           this.db = opts.name

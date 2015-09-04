@@ -18,12 +18,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var LocalDB = (function () {
       function LocalDB(name) {
         var type = arguments.length <= 1 || arguments[1] === undefined ? 'Array' : arguments[1];
+        var timestamp = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
 
         _classCallCheck(this, LocalDB);
 
         if (typeof name === 'string') {
           this.db = name;
           this.type = type;
+          this.timestamp = timestamp;
         } else if (typeof name === 'object') {
           var opts = name;
           this.db = opts.name;
