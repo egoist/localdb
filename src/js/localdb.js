@@ -129,7 +129,6 @@
           console.error('The .save method only works if the database is an Array!')
         }
         let collection = this.get()
-        console.log(collection[obj.index])
         if (collection[obj.index]._id === obj._id) {
           collection[obj.index] = obj
           this.override(collection)
