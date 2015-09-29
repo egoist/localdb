@@ -77,6 +77,15 @@ test('get some key/index in database', function () {
   ok(username === 'joe')
 })
 
+test('override with Array', function () {
+  var user = User.override([{
+    username: 'foo'
+  }, {
+    username: 'bar'
+  }]).findOne()
+  ok(user._id && user.createdAt && user.updatedAt)
+})
+
 test('destroy db and fetch unexisting element', function () {
   var db = booksdb.destroy().get()
   ok(booksdb.get(0) === null)

@@ -93,18 +93,23 @@
         }
         let collection = this.get() || []
         let index = 0
-        if (collection.length > 0) {
+        if (collection && collection.length > 0) {
           index = collection.length
         }
+        obj = this.initObj(index, obj)
+        collection.push(obj)
+        this.override(collection)
+        return this
+      }
+
+      initObj (index, obj) {
         obj.index = index
         obj._id = objectId()
         if (this.timestamp) {
           obj.createdAt = new Date()
           obj.updatedAt = new Date()
         }
-        collection.push(obj)
-        this.override(collection)
-        return this
+        return obj
       }
 
       set (key, value) {
@@ -132,7 +137,13 @@
       }
 
       override (collection) {
+        if (this.type === 'Array') {
+          for (var i = 0; i < collection.length; i++) {
+            collection[i] = this.initObj(i, collection[i])
+          }
+        }
         LS.setItem(this.db, JSON.stringify(collection))
+        return this
       }
 
       remove (key, value) {
