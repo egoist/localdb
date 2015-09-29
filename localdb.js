@@ -36,8 +36,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       _createClass(LocalDB, [{
         key: 'get',
-        value: function get() {
-          return JSON.parse(LS.getItem(this.db));
+        value: function get(where) {
+          // where maps to key or index, depending on the type if Object or Array
+          var collection = JSON.parse(LS.getItem(this.db));
+          if (!where) return collection;else if (typeof collection === 'undefined' || !collection) return null;else return collection[where];
         }
       }, {
         key: 'findOne',

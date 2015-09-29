@@ -17,9 +17,11 @@ Better localStorage
 
 当类型为 `Array` 时可用，在数据库中增加一条集合
 
-### db.get()
+### db.get(where)
 
-返回数据库中的内容，返回类型为 `null` 或 `Object` 或 `Array`
+`where` 为 `null` 时,返回数据库中的内容，返回类型为 `null` 或 `Object` 或 `Array`
+
+`where` 的类型为 `string` 或者 `number` 时返回对应的 `Object[key]` 或者 `Array[index]`
 
 ### db.findOne(query:Object)
 

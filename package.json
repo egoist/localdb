@@ -1,6 +1,6 @@
 {
   "name": "localdb",
-  "version": "0.1.12",
+  "version": "0.1.2",
   "description": "",
   "main": "localdb.js",
   "scripts": {

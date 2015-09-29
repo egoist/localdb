@@ -68,8 +68,18 @@ test('skip and limit when finding user', function () {
   ok(user[0].username === 'joe')
 })
 
-test('destroy db', function () {
+test('get some key/index in database', function () {
+  var sitename = config.set('sitename', 'Google').get('sitename')
+  ok(sitename === 'Google')
+
+  initUsers()
+  var username = User.get(1).username
+  ok(username === 'joe')
+})
+
+test('destroy db and fetch unexisting element', function () {
   var db = booksdb.destroy().get()
+  ok(booksdb.get(0) === null)
   ok(db === null)
 })
 

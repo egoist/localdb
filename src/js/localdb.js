@@ -24,8 +24,15 @@
 
       }
 
-      get () {
-        return JSON.parse(LS.getItem(this.db))
+      get (where) {
+        // where maps to key or index, depending on the type if Object or Array
+        const collection = JSON.parse(LS.getItem(this.db))
+        if (!where)
+          return collection
+        else if (typeof collection === 'undefined' || !collection)
+          return null
+        else
+          return collection[where]
       }
 
       findOne (query) {
