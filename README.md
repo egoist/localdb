@@ -35,7 +35,7 @@ Better localStorage
 var opts = { limit: 0, sortBy: 'index', sort: 1, skip: 0 }
 ```
 
-### db.update(obj:Oject)
+### db.save(obj:Oject)
 
 当类型为 `Array` 时可用，obj 为 `.findOne` 或 `.find` 返回的结果，类型为 `Object`，你可以作出更改之后用 `.update` 更新到数据库
 
