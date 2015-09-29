@@ -43,6 +43,23 @@ test('update a book', function () {
   ok(book.title === 'Love')
 })
 
+test('update books', function () {
+  initBooks()
+  var books = booksdb.find()
+  books.forEach(function (b) {
+    b.what = 'ever'
+    booksdb.save(b)
+  })
+  var result = true
+  booksdb.find().forEach(function (b) {
+    if (b.what !== 'ever') {
+      result = false
+      return
+    }
+  })
+  ok(result)
+})
+
 test('remove a key', function () {
   var site = config.set('date', Date.now()).set('owner', 'God').get()
   var existed = (typeof site.owner === 'string') ? true : false
@@ -82,7 +99,7 @@ test('override with Array', function () {
     username: 'foo'
   }, {
     username: 'bar'
-  }]).findOne()
+  }], true).findOne()
   ok(user._id && user.createdAt && user.updatedAt)
 })
 

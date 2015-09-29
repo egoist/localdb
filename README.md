@@ -48,6 +48,12 @@ var opts = { limit: 0, sortBy: 'index', sort: 1, skip: 0 }
 当类型为 `Array` 按键值对删除对应的集合  
 当类型为 `Object` 时直接删除该 key
 
+### db.override(colleciton, reinit = false)
+
+用 `collection` 整个覆盖旧的数据库
+
+`reinit` 为 `true` 将自动按照 `opts` 配置为每个 `Object` 生成 `_id` `createdAt` `updatedAt`
+
 ### db.destroy()
 
 销毁数据库

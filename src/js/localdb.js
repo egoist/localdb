@@ -129,6 +129,7 @@
           console.error('The .save method only works if the database is an Array!')
         }
         let collection = this.get()
+        console.log(collection[obj.index])
         if (collection[obj.index]._id === obj._id) {
           collection[obj.index] = obj
           this.override(collection)
@@ -136,8 +137,8 @@
         return this
       }
 
-      override (collection) {
-        if (this.type === 'Array') {
+      override (collection, reinit = false) {
+        if (this.type === 'Array' && reinit) {
           for (var i = 0; i < collection.length; i++) {
             collection[i] = this.initObj(i, collection[i])
           }
