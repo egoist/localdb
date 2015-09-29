@@ -153,13 +153,16 @@
           if (collection.length === 0) {
             return this
           }
-          collection = collection.filter((obj) => {
+          collection = collection.filter(obj => {
             if (obj[key] === value) {
               return false
             } else {
               return true
             }
           })
+          for (var i = 0; i < collection.length; i++) {
+            collection[i].index = i
+          }
         } else if (this.type === 'Object') {
           delete collection[key]
         }
