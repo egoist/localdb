@@ -1,10 +1,44 @@
 # LocalDB
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+[![NPM](https://nodei.co/npm/localdb.png)](https://nodei.co/npm/localdb/)
 
 Better localStorage
 
-参考示例见[测试文件](https://github.com/aprilorange/localdb/blob/master/test%2Ftests.js)
+## Example
+
+```javascript
+import localdb from 'localdb'
+const Notes = new localdb('notes', 'Array', true)
+
+// insert a couple collections and return the collections
+let notes = Notes
+  .add({title: 'Today is a big day', category: 'diary'})
+  .add({title: 'I met my ex today', category: 'diary'})
+  .add({title: 'Levandowski is amazing!', category: 'football'})
+  .get()
+
+// remove all post categoried in football
+Note.remove({category: 'football'})
+
+// find posts and update
+const query = {title: 'diary'}
+const opts = {limit: 2, sort: 1, sortBy: 'title', skip: 0}
+Notse.find(query, opts).forEach(note => {
+  note.author = 'egoist'
+  Notes.save(note)
+})
+
+// override the whole database and generate meta
+Notes.override({title: 'New post'})
+
+// Create an Object database and set some property
+const Site = new localdb('site', 'Object')
+Site.set('sitename', 'Google')
+
+// destroy some database
+Site.destroy()
+```
 
 ## API
 
