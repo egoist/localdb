@@ -3,8 +3,6 @@
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 [![NPM](https://nodei.co/npm/localdb.png)](https://nodei.co/npm/localdb/)
 
-Better localStorage
-
 ## Example
 
 ```javascript
