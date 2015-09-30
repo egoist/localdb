@@ -97,8 +97,16 @@ var opts = { limit: 0, sortBy: 'index', sort: 1, skip: 0 }
 
 ### db.remove(key:String, value)
 
-当类型为 `Array` 按键值对删除对应的集合  
+当类型为 `Array` 按键值对删除对应的集合
 当类型为 `Object` 时直接删除该 key
+
+### db.extend(objectId)
+
+创建一个该数据库的 `Pointer` 用于 `populate`
+
+### db.populate(field)
+
+在 `.find` 或 `.findOne` 时获取该 `filed` 指向的 `collection`
 
 ### db.override(colleciton, reinit = false)
 
