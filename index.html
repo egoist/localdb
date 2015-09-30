@@ -50,7 +50,7 @@ Notes.<span class="pl-c1">find</span>(query, opts).forEach(note <span class="pl-
 })
 
 <span class="pl-c">// override the whole database and generate meta</span>
-Notes.override({title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>New post<span class="pl-pds">'</span></span>}, <span class="pl-c1">true</span>)
+Notes.override([{title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>New post<span class="pl-pds">'</span></span>}], <span class="pl-c1">true</span>)
 
 <span class="pl-c">// populate another class, eg: your Post have a Author field</span>
 <span class="pl-k">const</span> <span class="pl-c1">Post</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">localdb</span>(<span class="pl-s"><span class="pl-pds">'</span>Post<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Array<span class="pl-pds">'</span></span>)
@@ -115,7 +115,7 @@ Site.destroy()</pre></div>
 <h3>
 <a id="dbsaveobjoject" class="anchor" href="#dbsaveobjoject" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.save(obj:Oject)</h3>
 
-<p>当类型为 <code>Array</code> 时可用，obj 为 <code>.findOne</code> 或 <code>.find</code> 返回的结果，类型为 <code>Object</code>，你可以作出更改之后用 <code>.update</code> 更新到数据库</p>
+<p>当类型为 <code>Array</code> 时可用，obj 为 <code>.findOne</code> 或 <code>.find</code> 返回的结果，类型为 <code>Object</code>，你可以作出更改之后用 <code>.save</code> 更新到数据库</p>
 
 <h3>
 <a id="dbsetkeystring-value" class="anchor" href="#dbsetkeystring-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.set(key:String, value)</h3>
@@ -157,7 +157,16 @@ Site.destroy()</pre></div>
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
-<p>MIT.</p>
+<p>This project is released under SOX license that means you can do whatever you want to do, but you have to open source your copy on github if you let the public uses it. All copies should be released under the same license. The owner of each copy is only reponsible for his own copy, not for the parents, not for the children.</p>
+
+<p>permitted use:<br>
+fork on github<br>
+change<br>
+do evil with your copy  </p>
+
+<p>prohibted use:<br>
+do evil with copies not of your own<br>
+open source your copy without declaring your parent copy  </p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/egoist/localdb">LocalDB</a> is maintained by <a href="https://github.com/egoist">egoist</a>.</span>
