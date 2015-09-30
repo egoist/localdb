@@ -104,7 +104,7 @@ var opts = { limit: 0, sortBy: 'index', sort: 1, skip: 0 }
 
 ### db.populate(field)
 
-在 `.find` 或 `.findOne` 时获取该 `filed` 指向的 `collection`
+在 `.find` 或 `.findOne` 时获取该 `field` 指向的 `collection`
 
 ### db.override(colleciton, reinit = false)
 
