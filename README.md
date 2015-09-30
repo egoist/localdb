@@ -19,7 +19,7 @@ let notes = Notes
   .get()
 
 // remove all post categoried in football
-Note.remove('category', 'football)
+Note.remove('category', 'football')
 
 // find posts and update
 const query = {title: 'diary'}
