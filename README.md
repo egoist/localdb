@@ -11,7 +11,7 @@ Better localStorage
 import localdb from 'localdb'
 const Notes = new localdb('notes', 'Array', true)
 
-// insert a couple collections and return the collections
+// insert some collections and return the collections
 let notes = Notes
   .add({title: 'Today is a big day', category: 'diary'})
   .add({title: 'I met my ex today', category: 'diary'})
