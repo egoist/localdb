@@ -28,7 +28,7 @@ Notes.find(query, opts).forEach(note => {
 })
 
 // override the whole database and generate meta
-Notes.override({title: 'New post'}, true)
+Notes.override([{title: 'New post'}], true)
 
 // populate another class, eg: your Post have a Author field
 const Post = new localdb('Post', 'Array')
