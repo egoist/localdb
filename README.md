@@ -19,12 +19,12 @@ let notes = Notes
   .get()
 
 // remove all post categoried in football
-Note.remove('category', 'football')
+Notes.remove('category', 'football')
 
 // find posts and update
 const query = {title: 'diary'}
 const opts = {limit: 2, sort: 1, sortBy: 'title', skip: 0}
-Notse.find(query, opts).forEach(note => {
+Notes.find(query, opts).forEach(note => {
   note.author = 'egoist'
   Notes.save(note)
 })
