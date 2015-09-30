@@ -22,11 +22,62 @@
       <h1>
 <a id="localdb" class="anchor" href="#localdb" aria-hidden="true"><span class="octicon octicon-link"></span></a>LocalDB</h1>
 
-<p><a href="https://github.com/feross/standard"><img src="https://cdn.rawgit.com/feross/standard/master/badge.svg" alt="js-standard-style"></a></p>
+<p><a href="https://github.com/feross/standard"><img src="https://cdn.rawgit.com/feross/standard/master/badge.svg" alt="js-standard-style"></a>
+<a href="https://nodei.co/npm/localdb/"><img src="https://nodei.co/npm/localdb.png" alt="NPM"></a></p>
 
 <p>Better localStorage</p>
 
-<p>参考示例见<a href="https://github.com/aprilorange/localdb/blob/master/test%2Ftests.js">测试文件</a></p>
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> localdb <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>localdb<span class="pl-pds">'</span></span>
+<span class="pl-k">const</span> <span class="pl-c1">Notes</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">localdb</span>(<span class="pl-s"><span class="pl-pds">'</span>notes<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Array<span class="pl-pds">'</span></span>, <span class="pl-c1">true</span>)
+
+<span class="pl-c">// insert some collections and return the collections</span>
+<span class="pl-k">let</span> notes <span class="pl-k">=</span> Notes
+  .<span class="pl-c1">add</span>({title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Today is a big day<span class="pl-pds">'</span></span>, category<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>diary<span class="pl-pds">'</span></span>})
+  .<span class="pl-c1">add</span>({title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>I met my ex today<span class="pl-pds">'</span></span>, category<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>diary<span class="pl-pds">'</span></span>})
+  .<span class="pl-c1">add</span>({title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Levandowski is amazing!<span class="pl-pds">'</span></span>, category<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>football<span class="pl-pds">'</span></span>})
+  .get()
+
+<span class="pl-c">// remove all post categoried in football</span>
+Notes.remove(<span class="pl-s"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>football<span class="pl-pds">'</span></span>)
+
+<span class="pl-c">// find posts and update</span>
+<span class="pl-k">const</span> <span class="pl-c1">query</span> <span class="pl-k">=</span> {title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>diary<span class="pl-pds">'</span></span>}
+<span class="pl-k">const</span> <span class="pl-c1">opts</span> <span class="pl-k">=</span> {limit<span class="pl-k">:</span> <span class="pl-c1">2</span>, sort<span class="pl-k">:</span> <span class="pl-c1">1</span>, sortBy<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>, skip<span class="pl-k">:</span> <span class="pl-c1">0</span>}
+Notes.<span class="pl-c1">find</span>(query, opts).forEach(note <span class="pl-k">=&gt;</span> {
+  note.author <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>egoist<span class="pl-pds">'</span></span>
+  Notes.save(note)
+})
+
+<span class="pl-c">// override the whole database and generate meta</span>
+Notes.override({title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>New post<span class="pl-pds">'</span></span>}, <span class="pl-c1">true</span>)
+
+<span class="pl-c">// populate another class, eg: your Post have a Author field</span>
+<span class="pl-k">const</span> <span class="pl-c1">Post</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">localdb</span>(<span class="pl-s"><span class="pl-pds">'</span>Post<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Array<span class="pl-pds">'</span></span>)
+<span class="pl-k">const</span> <span class="pl-c1">User</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">localdb</span>(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Array<span class="pl-pds">'</span></span>)
+
+<span class="pl-c">// you should have the Author's objectId to create an instance of that class</span>
+<span class="pl-k">const</span> <span class="pl-c1">author</span> <span class="pl-k">=</span> User.extend(<span class="pl-s"><span class="pl-pds">'</span>some_object_id<span class="pl-pds">'</span></span>)
+
+Post.<span class="pl-c1">add</span>({
+  title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>mt post title<span class="pl-pds">'</span></span>,
+  author<span class="pl-k">:</span> author
+})
+
+<span class="pl-c">// then you can populate that field before .find or .findOne</span>
+Post.populate(<span class="pl-s"><span class="pl-pds">'</span>author<span class="pl-pds">'</span></span>).findOne()
+
+<span class="pl-c">// create an Object database and set some property</span>
+<span class="pl-k">const</span> <span class="pl-c1">Site</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">localdb</span>(<span class="pl-s"><span class="pl-pds">'</span>site<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Object<span class="pl-pds">'</span></span>)
+Site.set(<span class="pl-s"><span class="pl-pds">'</span>sitename<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Google<span class="pl-pds">'</span></span>)
+
+<span class="pl-c">// get sitename</span>
+<span class="pl-k">const</span> <span class="pl-c1">sitename</span> <span class="pl-k">=</span> Site.get(<span class="pl-s"><span class="pl-pds">'</span>sitename<span class="pl-pds">'</span></span>)
+
+<span class="pl-c">// destroy some database</span>
+Site.destroy()</pre></div>
 
 <h2>
 <a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h2>
@@ -45,9 +96,11 @@
 <p>当类型为 <code>Array</code> 时可用，在数据库中增加一条集合</p>
 
 <h3>
-<a id="dbget" class="anchor" href="#dbget" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.get()</h3>
+<a id="dbgetwhere" class="anchor" href="#dbgetwhere" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.get(where)</h3>
 
-<p>返回数据库中的内容，返回类型为 <code>null</code> 或 <code>Object</code> 或 <code>Array</code></p>
+<p><code>where</code> 为 <code>null</code> 时,返回数据库中的内容，返回类型为 <code>null</code> 或 <code>Object</code> 或 <code>Array</code></p>
+
+<p><code>where</code> 的类型为 <code>string</code> 或者 <code>number</code> 时返回对应的 <code>Object[key]</code> 或者 <code>Array[index]</code></p>
 
 <h3>
 <a id="dbfindonequeryobject" class="anchor" href="#dbfindonequeryobject" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.findOne(query:Object)</h3>
@@ -62,7 +115,7 @@
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> opts <span class="pl-k">=</span> { limit<span class="pl-k">:</span> <span class="pl-c1">0</span>, sortBy<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>index<span class="pl-pds">'</span></span>, sort<span class="pl-k">:</span> <span class="pl-c1">1</span>, skip<span class="pl-k">:</span> <span class="pl-c1">0</span> }</pre></div>
 
 <h3>
-<a id="dbupdateobjoject" class="anchor" href="#dbupdateobjoject" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.update(obj:Oject)</h3>
+<a id="dbsaveobjoject" class="anchor" href="#dbsaveobjoject" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.save(obj:Oject)</h3>
 
 <p>当类型为 <code>Array</code> 时可用，obj 为 <code>.findOne</code> 或 <code>.find</code> 返回的结果，类型为 <code>Object</code>，你可以作出更改之后用 <code>.update</code> 更新到数据库</p>
 
@@ -74,8 +127,25 @@
 <h3>
 <a id="dbremovekeystring-value" class="anchor" href="#dbremovekeystring-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.remove(key:String, value)</h3>
 
-<p>当类型为 <code>Array</code> 按键值对删除对应的集合<br>
+<p>当类型为 <code>Array</code> 按键值对删除对应的集合
 当类型为 <code>Object</code> 时直接删除该 key</p>
+
+<h3>
+<a id="dbextendobjectid" class="anchor" href="#dbextendobjectid" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.extend(objectId)</h3>
+
+<p>创建一个该数据库的 <code>Pointer</code> 用于 <code>populate</code></p>
+
+<h3>
+<a id="dbpopulatefield" class="anchor" href="#dbpopulatefield" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.populate(field)</h3>
+
+<p>在 <code>.find</code> 或 <code>.findOne</code> 时获取该 <code>filed</code> 指向的 <code>collection</code></p>
+
+<h3>
+<a id="dboverridecolleciton-reinit--false" class="anchor" href="#dboverridecolleciton-reinit--false" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.override(colleciton, reinit = false)</h3>
+
+<p>用 <code>collection</code> 整个覆盖旧的数据库</p>
+
+<p><code>reinit</code> 为 <code>true</code> 将自动按照 <code>opts</code> 配置为每个 <code>Object</code> 生成 <code>_id</code> <code>createdAt</code> <code>updatedAt</code></p>
 
 <h3>
 <a id="dbdestroy" class="anchor" href="#dbdestroy" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.destroy()</h3>
