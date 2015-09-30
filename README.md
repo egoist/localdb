@@ -116,6 +116,10 @@ var opts = { limit: 0, sortBy: 'index', sort: 1, skip: 0 }
 
 销毁数据库
 
+--- 
+
+相关文章: [一个简单的 localStorage 扩展实现](https://egoist.github.io/2015/09/30/a-light-weight-localstorage-orm/)
+
 ## License
 
 MIT.
