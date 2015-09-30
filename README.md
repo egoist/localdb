@@ -32,6 +32,21 @@ Notes.find(query, opts).forEach(note => {
 // override the whole database and generate meta
 Notes.override({title: 'New post'}, true)
 
+// populate another class, eg: your Post have a Author field
+const Post = new localdb('Post', 'Array')
+const User = new localdb('User', 'Array')
+
+// you should have the Author's objectId to create an instance of that class
+const author = User.extend('some_object_id')
+
+Post.add({
+  title: 'mt post title',
+  author: author
+})
+
+// then you can populate that field before .find or .findOne
+Post.populate('author').findOne()
+
 // create an Object database and set some property
 const Site = new localdb('site', 'Object')
 Site.set('sitename', 'Google')

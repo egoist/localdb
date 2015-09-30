@@ -60,6 +60,23 @@ test('update books', function () {
   ok(result)
 })
 
+test('extend and populate', function () {
+
+  var user_id = initUsers()[0]._id
+  var Music = new localdb('music', 'Array', true)
+  Music.destroy()
+  var user = User.extend(user_id)
+  ok(user.__type)
+
+  var music = {
+    name: 'searet base',
+    singer: 'zone',
+    user: user
+  }
+  var m = Music.add(music).add(music).populate('user').find()
+  console.log(m)
+})
+
 test('remove a key', function () {
   var site = config.set('date', Date.now()).set('owner', 'God').get()
   var existed = (typeof site.owner === 'string') ? true : false

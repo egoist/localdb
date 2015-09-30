@@ -32,6 +32,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.type = opts.type || 'Array';
           this.timestamp = opts.timestamp || false;
         }
+        this.populate_keys = null;
       }
 
       _createClass(LocalDB, [{
@@ -51,6 +52,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: 'find',
         value: function find(query) {
+          var _this = this;
+
           var opts = arguments.length <= 1 || arguments[1] === undefined ? defaultOpts : arguments[1];
 
           if (this.type !== 'Array') {
@@ -77,7 +80,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             });
           }
           if (opts.limit === 1 && opts.skip === 0) {
-            return collection[0];
+            collection = collection[0];
           } else {
 
             collection = collection.sort(function (a, b) {
@@ -91,11 +94,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             });
 
             if (opts.limit === 0) {
-              return collection.slice(opts.skip);
+              collection = collection.slice(opts.skip);
             } else {
-              return collection.slice(opts.skip, opts.limit + opts.skip);
+              collection = collection.slice(opts.skip, opts.limit + opts.skip);
             }
           }
+
+          var populate = function populate(collection) {
+
+            if (_this.populate_keys && _this.populate_keys.length > 0) _this.populate_keys.forEach(function (key) {
+              var ref = collection[key];
+              if (ref) {
+                var db = new LocalDB(ref.__className, 'Array');
+                var temp = db.findOne({ '_id': ref.objectId });
+                collection[key] = temp;
+              }
+            });
+            return collection;
+          };
+
+          if (Array.isArray(collection)) {
+            collection.forEach(function (c) {
+              c = populate(c);
+            });
+          } else if (typeof collection === 'object') {
+            collection = populate(collection);
+          }
+
+          this.populate_keys = null;
+
+          return collection;
         }
       }, {
         key: 'add',
@@ -148,6 +176,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             collection[obj.index] = obj;
             this.override(collection);
           }
+          return this;
+        }
+      }, {
+        key: 'extend',
+        value: function extend(id) {
+          if (!id) {
+            return console.error('You should provide an objectId to reference');
+          }
+          return {
+            __type: 'Pointer',
+            __className: this.db,
+            objectId: id
+          };
+        }
+      }, {
+        key: 'populate',
+        value: function populate() {
+          for (var _len = arguments.length, keys = Array(_len), _key = 0; _key < _len; _key++) {
+            keys[_key] = arguments[_key];
+          }
+
+          this.populate_keys = keys;
           return this;
         }
       }, {

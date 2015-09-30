@@ -21,7 +21,7 @@
           this.type = opts.type || 'Array'
           this.timestamp = opts.timestamp || false
         }
-
+        this.populate_keys = null
       }
 
       get (where) {
@@ -66,7 +66,7 @@
           })
         }
         if (opts.limit === 1 && opts.skip === 0) {
-          return collection[0]
+          collection = collection[0]
         } else {
 
           collection = collection.sort((a, b) => {
@@ -80,11 +80,39 @@
           })
 
           if (opts.limit === 0) {
-            return collection.slice(opts.skip)
+            collection = collection.slice(opts.skip)
           } else {
-            return collection.slice(opts.skip, opts.limit + opts.skip)
+            collection = collection.slice(opts.skip, opts.limit + opts.skip)
           }
         }
+
+        let populate = (collection) => {
+          
+          if (this.populate_keys && this.populate_keys.length > 0)
+            this.populate_keys.forEach(key => {
+              const ref = collection[key]
+              if (ref) {
+                const db = new LocalDB(ref.__className, 'Array')
+                const temp = db.findOne({'_id': ref.objectId})
+                collection[key] = temp
+                
+              }
+            })
+          return collection
+        }
+
+        if (Array.isArray(collection)) {
+          collection.forEach(c => {
+            c = populate(c)
+          })
+        } else if (typeof collection === 'object') {
+          collection = populate(collection)
+        }
+        
+
+        this.populate_keys = null
+
+        return collection
       }
 
       add (obj) {
@@ -133,6 +161,22 @@
           collection[obj.index] = obj
           this.override(collection)
         }
+        return this
+      }
+
+      extend (id) {
+        if (!id) {
+          return console.error('You should provide an objectId to reference')
+        }
+        return {
+          __type: 'Pointer',
+          __className: this.db,
+          objectId: id
+        }
+      }
+
+      populate (...keys) {
+        this.populate_keys = keys
         return this
       }
 
