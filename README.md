@@ -30,7 +30,7 @@ Notse.find(query, opts).forEach(note => {
 })
 
 // override the whole database and generate meta
-Notes.override({title: 'New post'})
+Notes.override({title: 'New post'}, true)
 
 // Create an Object database and set some property
 const Site = new localdb('site', 'Object')
