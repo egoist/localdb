@@ -1,7 +1,7 @@
 {
   "name": "localdb",
-  "version": "0.2.11",
-  "description": "",
+  "version": "0.2.12",
+  "description": "Better localStorage",
   "main": "localdb.js",
   "scripts": {
     "build": "gulp build",

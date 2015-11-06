@@ -94,6 +94,10 @@ var opts = { limit: 0, sortBy: 'index', sort: 1, skip: 0 }
 
 当类型为 `Object` 时可用，更新此数据库的一个键值对，没有则新建
 
+### db.inc/dec(key, number)
+
+当类型为 `Object` 时可用，让一个 key 的值自增/自减 number 个单位， key 值不存在时默认为 0
+
 ### db.remove(key:String, value)
 
 当类型为 `Array` 按键值对删除对应的集合
