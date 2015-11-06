@@ -3,6 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/localdb.svg?style=flat-square)](https://www.npmjs.com/package/localdb)
 [![NPM download](https://img.shields.io/npm/dm/localdb.svg?style=flat-square)](https://www.npmjs.com/package/localdb)
 [![David Status](https://img.shields.io/david/egoist/localdb.svg?style=flat-square)](https://david-dm.org/egoist/localdb)
+[![Travis Build](https://img.shields.io/travis/egoist/localdb.svg)](https://travis-ci.org/egoist/localdb)
 
 ## Example
 
