@@ -1,7 +1,7 @@
 /*
  * localdb
  * (c) 2015
- * github.com/aprilorange/localdb
+ * github.com/egoist/localdb
  */
 
 () => {
@@ -87,7 +87,7 @@
         }
 
         let populate = (collection) => {
-          
+
           if (this.populate_keys && this.populate_keys.length > 0)
             this.populate_keys.forEach(key => {
               const ref = collection[key]
@@ -95,7 +95,7 @@
                 const db = new LocalDB(ref.__className, 'Array')
                 const temp = db.findOne({'_id': ref.objectId})
                 collection[key] = temp
-                
+
               }
             })
           return collection
@@ -108,7 +108,7 @@
         } else if (typeof collection === 'object') {
           collection = populate(collection)
         }
-        
+
 
         this.populate_keys = null
 
@@ -132,9 +132,13 @@
 
       initObj (index, obj) {
         obj.index = index
-        obj._id = objectId()
+        if (!obj._id) {
+          obj._id = objectId()
+        }
         if (this.timestamp) {
-          obj.createdAt = new Date()
+          if (!obj.createdAt) {
+            obj.createdAt = new Date()
+          }
           obj.updatedAt = new Date()
         }
         return obj
