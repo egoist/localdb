@@ -22,13 +22,14 @@
       <h1>
 <a id="localdb" class="anchor" href="#localdb" aria-hidden="true"><span class="octicon octicon-link"></span></a>LocalDB</h1>
 
-<p><a href="https://github.com/feross/standard"><img src="https://cdn.rawgit.com/feross/standard/master/badge.svg" alt="js-standard-style"></a>
-<a href="https://nodei.co/npm/localdb/"><img src="https://nodei.co/npm/localdb.png" alt="NPM"></a></p>
+<p><a href="https://www.npmjs.com/package/localdb"><img src="https://img.shields.io/npm/v/localdb.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://www.npmjs.com/package/localdb"><img src="https://img.shields.io/npm/dm/localdb.svg?style=flat-square" alt="NPM download"></a>
+<a href="https://travis-ci.org/egoist/localdb"><img src="https://img.shields.io/travis/egoist/localdb.svg?style=flat-square" alt="Travis Build"></a></p>
 
 <h2>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> localdb <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>localdb<span class="pl-pds">'</span></span>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">localdb</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>localdb<span class="pl-pds">'</span></span>
 <span class="pl-k">const</span> <span class="pl-c1">Notes</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">localdb</span>(<span class="pl-s"><span class="pl-pds">'</span>notes<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Array<span class="pl-pds">'</span></span>, <span class="pl-c1">true</span>)
 
 <span class="pl-c">// insert some collections and return the collections</span>
@@ -121,6 +122,11 @@ Site.destroy()</pre></div>
 <a id="dbsetkeystring-value" class="anchor" href="#dbsetkeystring-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.set(key:String, value)</h3>
 
 <p>当类型为 <code>Object</code> 时可用，更新此数据库的一个键值对，没有则新建</p>
+
+<h2>
+<a id="dbincdeckey-number" class="anchor" href="#dbincdeckey-number" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.inc/dec(key, number)</h2>
+
+<p>当类型为 <code>Object</code> 时可用，让一个 key 的值自增/自减 number 个单位， key 值不存在时默认为 0</p>
 
 <h3>
 <a id="dbremovekeystring-value" class="anchor" href="#dbremovekeystring-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>db.remove(key:String, value)</h3>
