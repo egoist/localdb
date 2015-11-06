@@ -1,7 +1,7 @@
 /*
  * localdb
  * (c) 2015
- * github.com/aprilorange/localdb
+ * github.com/egoist/localdb
  */
 
 'use strict';
@@ -145,9 +145,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: 'initObj',
         value: function initObj(index, obj) {
           obj.index = index;
-          obj._id = objectId();
+          if (!obj._id) {
+            obj._id = objectId();
+          }
           if (this.timestamp) {
-            obj.createdAt = new Date();
+            if (!obj.createdAt) {
+              obj.createdAt = new Date();
+            }
             obj.updatedAt = new Date();
           }
           return obj;
@@ -161,6 +165,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           } else {
             var collection = this.get() || {};
             collection[key] = value;
+            this.override(collection);
+          }
+          return this;
+        }
+      }, {
+        key: 'inc',
+        value: function inc(key) {
+          var value = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+
+          return this.incOrDec('inc', key, value);
+        }
+      }, {
+        key: 'dec',
+        value: function dec(key) {
+          var value = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+
+          return this.incOrDec('dec', key, value);
+        }
+      }, {
+        key: 'incOrDec',
+        value: function incOrDec(type, key) {
+          var value = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+
+          if (this.type !== 'Object') {
+            console.error('The .set method only works if the database is an Object!');
+          } else {
+            var collection = this.get() || {};
+            if (type === 'inc') {
+              collection[key] = (collection[key] || 0) + value;
+            } else if (type === 'dec') {
+              collection[key] = (collection[key] || 0) - value;
+            }
             this.override(collection);
           }
           return this;

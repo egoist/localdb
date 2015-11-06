@@ -16,6 +16,12 @@ test('add a book and return books', function () {
 
 })
 
+test('inc and dec', function () {
+  ok(config.inc('count').get('count') === 1)
+  ok(config.dec('count').get('count') === 0)
+  ok(config.inc('count', 2).get('count') === 2)
+})
+
 test('remove a book and return books', function () {
   var books = initBooks()
   var updated = booksdb.remove('title', 'Diao').get()

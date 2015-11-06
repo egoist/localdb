@@ -156,6 +156,29 @@
         return this
       }
 
+      inc (key, value = 1) {
+        return this.incOrDec('inc', key, value)
+      }
+
+      dec (key, value = 1) {
+        return this.incOrDec('dec', key, value)
+      }
+
+      incOrDec (type, key, value = 1) {
+        if (this.type !== 'Object') {
+          console.error('The .set method only works if the database is an Object!')
+        } else {
+          let collection = this.get() || {}
+          if (type === 'inc') {
+            collection[key] = (collection[key] || 0) + value
+          } else if (type === 'dec') {
+            collection[key] = (collection[key] || 0) - value
+          }
+          this.override(collection)
+        }
+        return this
+      }
+
       save (obj) {
         if (this.type !== 'Array') {
           console.error('The .save method only works if the database is an Array!')
