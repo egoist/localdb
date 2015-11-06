@@ -1,7 +1,8 @@
 # LocalDB
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-[![NPM](https://nodei.co/npm/localdb.png)](https://nodei.co/npm/localdb/)
+[![NPM version](https://img.shields.io/npm/v/localdb.svg?style=flat-square)](https://www.npmjs.com/package/localdb)
+[![NPM download](https://img.shields.io/npm/dm/localdb.svg?style=flat-square)](https://www.npmjs.com/package/localdb)
+[![David Status](https://img.shields.io/david/egoist/localdb.svg?style=flat-square)](https://david-dm.org/egoist/localdb)
 
 ## Example
 
@@ -116,7 +117,7 @@ var opts = { limit: 0, sortBy: 'index', sort: 1, skip: 0 }
 
 销毁数据库
 
---- 
+---
 
 相关文章: [一个简单的 localStorage 扩展实现](https://egoist.github.io/2015/09/30/a-light-weight-localstorage-orm/)
 
